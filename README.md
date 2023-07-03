@@ -8,6 +8,12 @@ Install dependencies:
 yarn install
 ```
 
+Install llama model:
+```bash
+npx dalai llama install 7B
+```
+> This will take a while.
+
 Build:
 
 ```bash
