@@ -6,10 +6,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/main.js",
-    "dev": "ts-node src/main.ts",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/main.ts",
     "postinstall": "yarn --cwd app",
-    "postbuild": "yarn --cwd app build",
-    "poststart": "yarn --cwd app preview"
+    "postbuild": "yarn --cwd app build"
   },
   "dependencies": {
     "dalai": "^0.3.1"
@@ -17,7 +16,6 @@
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/node": "^20.3.3",
-    "concurrently": "^8.2.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   }
