@@ -1,29 +1,30 @@
 import Dalai from "dalai";
 import express from "express";
 
-const MODEL = "7B";
-
 const dalai = new Dalai();
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
-app.get("/prompt", (req, res) => {
-  const prompt = req.query.prompt;
-  if (typeof prompt !== "string") {
+app.get("/chat", async (req, res) => {
+  const { message } = req.query;
+  if (typeof message !== "string") {
     res.status(400).send("Missing prompt");
     return;
   }
-  if (prompt.trim().length === 0) {
+  if (message.trim().length === 0) {
     res.status(400).send("Prompt is empty");
     return;
   }
-  dalai.request({
-    prompt,
-    model: MODEL,
-  });
+  res.setHeader("Content-Type", "text/plain");
+  await dalai.request(
+    {
+      prompt: message,
+      model: "llama.7B",
+    },
+    (token: string) => {
+      res.write(token);
+    }
+  );
+  res.end();
 });
 
 app.listen(4000, () => {
