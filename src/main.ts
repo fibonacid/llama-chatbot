@@ -26,6 +26,8 @@ app.get("/chat", async (req, res) => {
     {
       prompt: message,
       model: "llama.7B",
+      skip_end: true,
+      n_predict: 64,
     },
     (token: string) => {
       res.write(token);
