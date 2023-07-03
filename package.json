@@ -11,6 +11,8 @@
     "postbuild": "yarn --cwd app build"
   },
   "dependencies": {
+    "@types/cors": "^2.8.13",
+    "cors": "^2.8.5",
     "dalai": "^0.3.1"
   },
   "devDependencies": {

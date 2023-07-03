@@ -1,8 +1,15 @@
 import Dalai from "dalai";
 import express from "express";
+import cors from "cors";
 
 const dalai = new Dalai();
 const app = express();
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.get("/chat", async (req, res) => {
   const { message } = req.query;
