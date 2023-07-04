@@ -22,15 +22,30 @@ app.get("/chat", async (req, res) => {
     return;
   }
   res.setHeader("Content-Type", "text/plain");
+
+  const prompt = `Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+
+  ### Instruction:
+  >${message}
+  
+  ### Response:`;
+
+  let stream = false;
   await dalai.request(
     {
-      prompt: message,
-      model: "llama.7B",
-      skip_end: true,
-      n_predict: 64,
+      prompt,
+      model: "llama.13B",
+      n_predict: 50,
     },
     (token: string) => {
-      res.write(token);
+      process.stdout.write(token);
+      if (token.trim().includes("Response:")) {
+        stream = true;
+        return;
+      }
+      if (stream) {
+        res.write(token);
+      }
     }
   );
   res.end();
