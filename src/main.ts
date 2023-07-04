@@ -36,6 +36,7 @@ app.get("/chat", async (req, res) => {
       prompt,
       model: "llama.13B",
       n_predict: 50,
+      skip_end: true,
     },
     (token: string) => {
       process.stdout.write(token);
